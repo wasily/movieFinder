@@ -31,7 +31,7 @@ Frontend  реализован на React.js
 
 movies (информация о фильмах):
 
-- imdb_id
+- imdbId
 - primaryTitle
 - originalTitle
 - isAdult
@@ -39,7 +39,7 @@ movies (информация о фильмах):
 
 series (информация о сериалах):
 
-- imdb_id
+- imdbId
 - primaryTitle
 - originalTitle
 - isAdult
@@ -54,7 +54,7 @@ rutracker_releases (информация о релизах контента):
 
 subscriptions (информация о подписках на оповещение):
 
-- imdb_id (для поиска инофрмации о выходе в эфир/прокат)
+- imdbId (для поиска инофрмации о выходе в эфир/прокат)
 - content_type (movie, series)
 - content_title (для поиска по релизам)
 - [] users_emails (для оповещения)
@@ -77,7 +77,7 @@ REST контроллеры:
 - GET:  /subscriptions/{user_email} - поиск подписок определенного пользователя
 - PUT:  /subscriptions/{imdb_id} - отмена подписки пользователя на опреленный фильм/сериал
 
-Репозитории:
+Сервисы:
 
 информация о релизах:
 
