@@ -91,7 +91,7 @@ REST контроллеры:
 - getSeriesByTitle("title")
 - getMoviesByTitle("title")
 - getSeriesByImdbId("imdb_id")
-- getMoviesByImdbId("imdb_id")
+- getMovieByImdbId("imdb_id")
 
 информация о подписках на оповещение:
 
