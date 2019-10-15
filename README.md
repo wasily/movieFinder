@@ -45,8 +45,9 @@ series (информация о сериалах):
 - isAdult
 - genres
 
-rutracker_releases (информация о релизах контента):
+content_releases (информация о релизах контента):
 
+- trackerId
 - title
 - size
 - info_hash
