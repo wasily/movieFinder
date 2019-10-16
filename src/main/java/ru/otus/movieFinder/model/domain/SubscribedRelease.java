@@ -7,26 +7,20 @@ import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.time.LocalTime;
+import java.util.List;
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-@Document(collection = "subscriptions")
-public class Subscription {
+@Document(collection = "subscribed_releases")
+public class SubscribedRelease {
     @Field(value = "imdbId")
     private String imdbId;
 
     @Field(value = "contentType")
     private String contentType;
 
-    @Field(value = "contentTitle")
-    private String contentTitle;
-
-    @Field(value = "user")
-    private String user;
-
-    @Field(value = "lastUpdateTime")
-    private LocalTime lastUpdateTime;
+    @Field(value = "contentReleases")
+    private List<ContentRelease> contentReleases;
 }

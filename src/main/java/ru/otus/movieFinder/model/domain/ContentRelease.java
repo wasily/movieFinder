@@ -13,15 +13,18 @@ import org.springframework.data.mongodb.core.mapping.Field;
 @Setter
 @Document(collection = "content_releases")
 public class ContentRelease {
+    @Field(value = "trackerId")
+    private String trackerId;
+
     @Field(value = "title")
     private String title;
 
     @Field(value = "size")
     private long size;
 
-    @Field(value = "info_hash")
-    private String info_hash;
+    @Field(value = "infoHash")
+    private String infoHash;
 
-    @Field(value = "reg_time")
-    private long reg_time;
+    @Field(value = "regTime")
+    private long regTime;
 }
