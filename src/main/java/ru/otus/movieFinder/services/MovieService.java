@@ -6,5 +6,5 @@ import java.util.List;
 
 public interface MovieService {
     List<Movie> getMoviesByTitle(String title);
-    Movie getMovieByImdbId(String imdb_id);
+    Movie getMovieByImdbId(String imdbId);
 }

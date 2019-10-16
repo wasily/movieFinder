@@ -21,17 +21,17 @@ public class MovieController {
     private final ReleasesService releasesService;
 
     @GetMapping("/movies")
-    public ResponseEntity<List<Movie>> listMovies(@RequestBody MovieRequestDTO movie) {
+    public ResponseEntity<List<Movie>> listMoviesByTitle(@RequestBody MovieRequestDTO movie) {
         return ResponseEntity.ok().body(movieService.getMoviesByTitle(movie.getTitle()));
     }
 
     @GetMapping("/movies/{imdb_id}")
-    public ResponseEntity<Movie> getMovie(@PathVariable String imdb_id) {
-        return ResponseEntity.ok().body(movieService.getMovieByImdbId(imdb_id));
+    public ResponseEntity<Movie> getMovieByImdbId(@PathVariable String imdbId) {
+        return ResponseEntity.ok().body(movieService.getMovieByImdbId(imdbId));
     }
 
     @GetMapping("/releases/movies")
-    public ResponseEntity<List<ContentRelease>> listMovieReleases(@RequestBody MovieRequestDTO movie) {
+    public ResponseEntity<List<ContentRelease>> listMovieReleasesByTitle(@RequestBody MovieRequestDTO movie) {
         return ResponseEntity.ok().body(releasesService.getMovieReleases(movie.getTitle()));
     }
 }

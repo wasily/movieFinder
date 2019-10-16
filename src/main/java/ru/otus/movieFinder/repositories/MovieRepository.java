@@ -6,6 +6,6 @@ import ru.otus.movieFinder.model.domain.Movie;
 import java.util.List;
 
 public interface MovieRepository extends MongoRepository<Movie, String> {
-    Movie findByImdbId(String imdb_id);
+    Movie findByImdbId(String imdbId);
     List<Movie> findByPrimaryTitleContaining(String title);
 }
