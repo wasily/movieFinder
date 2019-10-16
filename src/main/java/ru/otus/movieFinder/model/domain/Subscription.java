@@ -7,7 +7,7 @@ import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.time.LocalTime;
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -28,5 +28,5 @@ public class Subscription {
     private String user;
 
     @Field(value = "lastUpdateTime")
-    private LocalTime lastUpdateTime;
+    private LocalDateTime lastUpdateTime;
 }

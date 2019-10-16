@@ -16,6 +16,9 @@ public class ContentRelease {
     @Field(value = "trackerId")
     private String trackerId;
 
+    @Field(value = "contentType")
+    private String contentType;
+
     @Field(value = "title")
     private String title;
 

@@ -11,14 +11,16 @@ import java.util.List;
 @RequiredArgsConstructor
 public class RutrackerReleasesServiceImpl implements ReleasesService {
     private final RutrackerRepository rutrackerRepository;
+    private static final String MOVIE_CONTENT_TYPE = "movie";
+    private static final String SERIES_CONTENT_TYPE = "series";
 
     @Override
     public List<ContentRelease> getMovieReleases(String title) {
-        return rutrackerRepository.findByTitleContaining(title);
+        return rutrackerRepository.findByTitleContaining(title, MOVIE_CONTENT_TYPE);
     }
 
     @Override
     public List<ContentRelease> getSeriesReleases(String title) {
-        return null;
+        return rutrackerRepository.findByTitleContaining(title, SERIES_CONTENT_TYPE);
     }
 }

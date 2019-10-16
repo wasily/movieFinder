@@ -10,6 +10,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class SubscriptionRequestDTO {
-    private String imdb_id;
-    private String user_email;
+    private String imdbId;
+    private String title;
+    private String user;
 }

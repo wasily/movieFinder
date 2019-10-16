@@ -16,21 +16,21 @@ public class SubscriptionController {
 
     @PostMapping("/subscribe/movies")
     public ResponseEntity subscribeOnMovie(@RequestBody SubscriptionRequestDTO sub) {
-        return subscriptionService.subscribeOnMovie(sub.getImdb_id(), sub.getUser_email()) ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+        return subscriptionService.subscribeOnMovie(sub.getImdbId(), sub.getTitle(), sub.getUser()) ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
     }
 
     @PostMapping("/subscribe/series")
     public ResponseEntity subscribeOnSeries(@RequestBody SubscriptionRequestDTO sub) {
-        return subscriptionService.subscribeOnSeries(sub.getImdb_id(), sub.getUser_email()) ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+        return subscriptionService.subscribeOnSeries(sub.getImdbId(), sub.getTitle(), sub.getUser()) ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
     }
 
-    @GetMapping("/subscriptions/{user_email}")
-    public ResponseEntity<List<Subscription>> getUserSubscriptions(@PathVariable String user_email) {
-        return ResponseEntity.ok().body(subscriptionService.getUserSubscriptions(user_email));
+    @GetMapping("/subscriptions/{user}")
+    public ResponseEntity<List<Subscription>> getUserSubscriptions(@PathVariable String user) {
+        return ResponseEntity.ok().body(subscriptionService.getUserSubscriptions(user));
     }
 
-    @PutMapping("/subscriptions/{imdb_id}")
+    @DeleteMapping("/subscriptions")
     public ResponseEntity unsubscribe(@RequestBody SubscriptionRequestDTO sub) {
-        return subscriptionService.unsubscribe(sub.getImdb_id(), sub.getUser_email()) ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
+        return subscriptionService.unsubscribe(sub.getImdbId(), sub.getUser()) ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
     }
 }
