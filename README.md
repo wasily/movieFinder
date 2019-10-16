@@ -54,6 +54,7 @@ Frontend  реализован на React.js
 **content_releases** (информация о релизах контента):
 
 - trackerId
+- contentType (movie, series)
 - title
 - size
 - infoHash
@@ -85,8 +86,8 @@ REST контроллеры:
 - GET:  /series/{imdb_id} - поиск сериалов по imdb_id
 - POST:  /subscribe/movies - подписатся на фильм
 - POST:  /subscribe/series - подписатся на сериал
-- GET:  /subscriptions/{user_email} - поиск подписок определенного пользователя
-- PUT:  /subscriptions/{imdb_id} - отмена подписки пользователя на опреленный фильм/сериал
+- GET:  /subscriptions/{user} - поиск подписок определенного пользователя
+- DEL:  /subscriptions - отмена подписки пользователя на опреленный фильм/сериал
 
 Сервисы:
 
@@ -107,5 +108,4 @@ REST контроллеры:
 - subscribeOnMovie("imdb_id", "user_email")
 - subscribeOnSeries("imdb_id", "user_email")
 - getUserSubscriptions("user_email")
-- getEmailsOfSubscription("imdb_id")
 - unsubscribe("imdb_id", "user_email")
