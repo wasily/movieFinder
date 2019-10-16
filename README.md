@@ -29,7 +29,7 @@ Frontend  реализован на React.js
 
 ###### Доменная модель. Коллекции MongoDB.
 
-movies (информация о фильмах):
+**movies** (информация о фильмах):
 
 - imdbId
 - primaryTitle
@@ -37,7 +37,7 @@ movies (информация о фильмах):
 - isAdult
 - genres
 
-series (информация о сериалах):
+**series** (информация о сериалах):
 
 - imdbId
 - primaryTitle
@@ -45,22 +45,22 @@ series (информация о сериалах):
 - isAdult
 - genres
 
-content_releases (информация о релизах контента):
+**content_releases** (информация о релизах контента):
 
 - trackerId
 - title
 - size
-- info_hash
-- reg_time
+- infoHash
+- regTime
 
-subscriptions (информация о подписках на оповещение):
+**subscriptions** (информация о подписках на оповещение):
 
 - imdbId (для поиска инофрмации о выходе в эфир/прокат)
-- content_type (movie, series)
-- content_title (для поиска по релизам)
-- [] users_emails (для оповещения)
-- search_date - для фильмов - по наступлению даты, осуществлять поиск по релизам
-- next_episode_search_date - для сериалов - по наступлению даты, ходить на imdb и обновлять дату поиска след. эпизода
+- contentType (movie, series)
+- contentTitle (для поиска по релизам)
+- [] usersEmails (для оповещения)
+- searchDate - для фильмов - по наступлению даты, осуществлять поиск по релизам
+- nextEpisodeSearchDate - для сериалов - по наступлению даты, ходить на imdb и обновлять дату поиска след. эпизода
 
 ###### API.
 
