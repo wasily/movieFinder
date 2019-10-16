@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import ru.otus.movieFinder.model.domain.Series;
 import ru.otus.movieFinder.repositories.SeriesRepository;
 
-import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -14,17 +13,12 @@ public class SeriesServiceImpl implements SeriesService {
     private final SeriesRepository seriesRepository;
 
     @Override
-    public LocalDate getNextAiredEpisodeDate(String imdb_id) {
-        return null;
-    }
-
-    @Override
     public List<Series> getSeriesByTitle(String title) {
-        return null;
+        return seriesRepository.findByPrimaryTitleContaining(title);
     }
 
     @Override
-    public Series getSeriesByImdbId(String imdb_id) {
-        return null;
+    public Series getSeriesByImdbId(String imdbId) {
+        return seriesRepository.findByImdbId(imdbId);
     }
 }

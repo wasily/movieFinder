@@ -21,17 +21,17 @@ public class SeriesController {
     private final ReleasesService releasesService;
 
     @GetMapping("/series")
-    public ResponseEntity<List<Series>> listSeries(@RequestBody SeriesRequestDTO series) {
+    public ResponseEntity<List<Series>> listSeriesByTitle(@RequestBody SeriesRequestDTO series) {
         return ResponseEntity.ok().body(seriesService.getSeriesByTitle(series.getTitle()));
     }
 
     @GetMapping("/series/{imdb_id}")
-    public ResponseEntity<Series> getSeries(@PathVariable String imdb_id) {
-        return ResponseEntity.ok().body(seriesService.getSeriesByImdbId(imdb_id));
+    public ResponseEntity<Series> getSeriesByImdbId(@PathVariable String imdbId) {
+        return ResponseEntity.ok().body(seriesService.getSeriesByImdbId(imdbId));
     }
 
     @GetMapping("/releases/series")
-    public ResponseEntity<List<ContentRelease>> listSeriesReleases(@RequestBody SeriesRequestDTO series) {
+    public ResponseEntity<List<ContentRelease>> listSeriesReleasesByTitle(@RequestBody SeriesRequestDTO series) {
         return ResponseEntity.ok().body(releasesService.getSeriesReleases(series.getTitle()));
     }
 }
