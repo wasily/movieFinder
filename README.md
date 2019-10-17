@@ -84,8 +84,8 @@ REST контроллеры:
 - GET:  /series - поиск сериалов по названию
 - GET:  /movies/{imdb_id} - поиск фильмов по imdb_id
 - GET:  /series/{imdb_id} - поиск сериалов по imdb_id
-- POST:  /subscribe/movies - подписатся на фильм
-- POST:  /subscribe/series - подписатся на сериал
+- POST:  /subscriptions/movies - подписатся на фильм
+- POST:  /subscriptions/series - подписатся на сериал
 - GET:  /subscriptions/{user} - поиск подписок определенного пользователя
 - DEL:  /subscriptions - отмена подписки пользователя на опреленный фильм/сериал
 

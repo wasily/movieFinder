@@ -14,12 +14,12 @@ import java.util.List;
 public class SubscriptionController {
     private final SubscriptionService subscriptionService;
 
-    @PostMapping("/subscribe/movies")
+    @PostMapping("/subscriptions/movies")
     public ResponseEntity subscribeOnMovie(@RequestBody SubscriptionRequestDTO sub) {
         return subscriptionService.subscribeOnMovie(sub.getImdbId(), sub.getTitle(), sub.getUser()) ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
     }
 
-    @PostMapping("/subscribe/series")
+    @PostMapping("/subscriptions/series")
     public ResponseEntity subscribeOnSeries(@RequestBody SubscriptionRequestDTO sub) {
         return subscriptionService.subscribeOnSeries(sub.getImdbId(), sub.getTitle(), sub.getUser()) ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
     }
