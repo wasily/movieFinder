@@ -7,6 +7,8 @@ import lombok.Setter;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
+import java.time.LocalDateTime;
+
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
@@ -29,5 +31,5 @@ public class ContentRelease {
     private String infoHash;
 
     @Field(value = "regTime")
-    private long regTime;
+    private LocalDateTime regTime;
 }
