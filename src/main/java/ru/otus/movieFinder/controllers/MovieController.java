@@ -25,7 +25,7 @@ public class MovieController {
         return ResponseEntity.ok().body(movieService.getMoviesByTitle(movie.getTitle()));
     }
 
-    @GetMapping("/movies/{imdb_id}")
+    @GetMapping("/movies/{imdbId}")
     public ResponseEntity<Movie> getMovieByImdbId(@PathVariable String imdbId) {
         return ResponseEntity.ok().body(movieService.getMovieByImdbId(imdbId));
     }

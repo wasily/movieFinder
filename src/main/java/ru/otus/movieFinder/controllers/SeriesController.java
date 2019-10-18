@@ -25,7 +25,7 @@ public class SeriesController {
         return ResponseEntity.ok().body(seriesService.getSeriesByTitle(series.getTitle()));
     }
 
-    @GetMapping("/series/{imdb_id}")
+    @GetMapping("/series/{imdbId}")
     public ResponseEntity<Series> getSeriesByImdbId(@PathVariable String imdbId) {
         return ResponseEntity.ok().body(seriesService.getSeriesByImdbId(imdbId));
     }
