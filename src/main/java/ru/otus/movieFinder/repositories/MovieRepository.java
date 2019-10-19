@@ -8,6 +8,7 @@ import java.util.List;
 
 public interface MovieRepository extends MongoRepository<Movie, String> {
     Movie findByImdbId(String imdbId);
-    @Query("{ 'primaryTitle' : {$regex:?0, $options:'i'}}")
+
+    @Query(value = "{ 'primaryTitle' : {$regex:?0, $options:'i'}}", sort = "{\"startYear\" : -1}")
     List<Movie> findByPrimaryTitleContaining(String title);
 }
