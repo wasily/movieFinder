@@ -8,6 +8,6 @@ import java.util.List;
 
 public interface SeriesRepository extends MongoRepository<Series, String> {
     Series findByImdbId(String imdbId);
-    @Query("{ 'primaryTitle' : {$regex:?0, $options:'i'}}")
+    @Query(value = "{ 'primaryTitle' : {$regex:?0, $options:'i'}}", sort = "{\"regTime\" : -1}")
     List<Series> findByPrimaryTitleContaining(String title);
 }
