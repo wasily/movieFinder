@@ -9,8 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @Getter
 @Setter
-public class SubscriptionRequestDTO {
+public class SubscriptionCancelDTO {
     private String imdbId;
-    private String title;
     private String userEmail;
 }

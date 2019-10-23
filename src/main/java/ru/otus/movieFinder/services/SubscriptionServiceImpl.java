@@ -16,24 +16,24 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     private static final String SERIES_CONTENT_TYPE = "series";
 
     @Override
-    public boolean subscribeOnMovie(String imdbId, String title, String user) {
-        subscriptionRepository.save(new Subscription(imdbId, MOVIE_CONTENT_TYPE, title, user, LocalDateTime.now()));
+    public boolean subscribeOnMovie(String imdbId, String title, String userEmail) {
+        subscriptionRepository.save(new Subscription(imdbId, MOVIE_CONTENT_TYPE, title, userEmail, LocalDateTime.now()));
         return true;
     }
 
     @Override
-    public boolean subscribeOnSeries(String imdbId, String title, String user) {
-        subscriptionRepository.save(new Subscription(imdbId, SERIES_CONTENT_TYPE, title, user, LocalDateTime.now()));
+    public boolean subscribeOnSeries(String imdbId, String title, String userEmail) {
+        subscriptionRepository.save(new Subscription(imdbId, SERIES_CONTENT_TYPE, title, userEmail, LocalDateTime.now()));
         return true;
     }
 
     @Override
-    public List<Subscription> getUserSubscriptions(String user) {
-        return subscriptionRepository.findByUser(user);
+    public List<Subscription> getUserSubscriptions(String userEmail) {
+        return subscriptionRepository.findByUserEmail(userEmail);
     }
 
     @Override
-    public boolean unsubscribe(String imdbId, String user) {
-        return subscriptionRepository.deleteSubscriptionByImdbIdAndUser(imdbId, user);
+    public boolean unsubscribe(String imdbId, String userEmail) {
+        return subscriptionRepository.deleteSubscriptionByImdbIdAndUserEmail(imdbId, userEmail);
     }
 }

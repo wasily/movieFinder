@@ -6,5 +6,5 @@ import ru.otus.movieFinder.model.domain.Subscription;
 import java.util.List;
 
 public interface SubscriptionRepository extends MongoRepository<Subscription, String>, SubscriptionRepositoryCustom {
-    List<Subscription> findByUser(String user);
+    List<Subscription> findByUserEmail(String userEmail);
 }
