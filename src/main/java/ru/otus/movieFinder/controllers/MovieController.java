@@ -21,7 +21,7 @@ public class MovieController {
 
     @PostMapping("/movies")
     @ApiOperation(value = "Получить список фильмов по части названия")
-    public ResponseEntity<List<Movie>> listMoviesByTitle(@RequestBody MovieRequestDTO movie) {
+    public ResponseEntity<List<Movie>> listMoviesByTitle(@RequestBody @ApiParam(name = "movie", value = "часть названия фильма", required = true) MovieRequestDTO movie) {
         return ResponseEntity.ok().body(movieService.getMoviesByTitle(movie.getTitle()));
     }
 
@@ -33,7 +33,7 @@ public class MovieController {
 
     @PostMapping("/releases/movies")
     @ApiOperation(value = "Получить список релизов фильмов по части названия")
-    public ResponseEntity<List<ContentRelease>> listMovieReleasesByTitle(@RequestBody MovieRequestDTO movie) {
+    public ResponseEntity<List<ContentRelease>> listMovieReleasesByTitle(@RequestBody @ApiParam(name = "movie", value = "часть названия фильма", required = true) MovieRequestDTO movie) {
         return ResponseEntity.ok().body(releasesService.getMovieReleases(movie.getTitle()));
     }
 }

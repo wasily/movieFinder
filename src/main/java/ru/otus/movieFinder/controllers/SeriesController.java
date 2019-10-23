@@ -22,7 +22,7 @@ public class SeriesController {
 
     @PostMapping("/series")
     @ApiOperation(value = "Получить список сериалов по части названия")
-    public ResponseEntity<List<Series>> listSeriesByTitle(@RequestBody SeriesRequestDTO series) {
+    public ResponseEntity<List<Series>> listSeriesByTitle(@RequestBody @ApiParam(name = "series", value = "часть названия сериала", required = true) SeriesRequestDTO series) {
         return ResponseEntity.ok().body(seriesService.getSeriesByTitle(series.getTitle()));
     }
 
@@ -34,7 +34,7 @@ public class SeriesController {
 
     @PostMapping("/releases/series")
     @ApiOperation(value = "Получить список релизов сериалов по части названия")
-    public ResponseEntity<List<ContentRelease>> listSeriesReleasesByTitle(@RequestBody SeriesRequestDTO series) {
+    public ResponseEntity<List<ContentRelease>> listSeriesReleasesByTitle(@RequestBody @ApiParam(name = "series", value = "часть названия сериала", required = true) SeriesRequestDTO series) {
         return ResponseEntity.ok().body(releasesService.getSeriesReleases(series.getTitle()));
     }
 }
