@@ -4,10 +4,12 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 import ru.otus.movieFinder.model.domain.ContentRelease;
 import ru.otus.movieFinder.model.domain.Series;
-import ru.otus.movieFinder.model.dto.SeriesRequestDTO;
 import ru.otus.movieFinder.services.ReleasesService;
 import ru.otus.movieFinder.services.SeriesService;
 
@@ -20,21 +22,21 @@ public class SeriesController {
     private final SeriesService seriesService;
     private final ReleasesService releasesService;
 
-    @PostMapping("/series")
+    @GetMapping("/series/title/{title:.+}")
     @ApiOperation(value = "Получить список сериалов по части названия")
-    public ResponseEntity<List<Series>> listSeriesByTitle(@RequestBody @ApiParam(name = "series", value = "часть названия сериала", required = true) SeriesRequestDTO series) {
-        return ResponseEntity.ok().body(seriesService.getSeriesByTitle(series.getTitle()));
+    public ResponseEntity<List<Series>> listSeriesByTitle(@PathVariable @ApiParam(value = "title", example = "house", required = true) String title) {
+        return ResponseEntity.ok().body(seriesService.getSeriesByTitle(title));
     }
 
-    @GetMapping("/series/{imdbId}")
+    @GetMapping("/series/id/{imdbId}")
     @ApiOperation(value = "Получить сериал по idmbId")
-    public ResponseEntity<Series> getSeriesByImdbId(@PathVariable @ApiParam(value = "imdbId", example = "tt4643084") String imdbId) {
+    public ResponseEntity<Series> getSeriesByImdbId(@PathVariable @ApiParam(value = "imdbId", example = "tt4643084", required = true) String imdbId) {
         return ResponseEntity.ok().body(seriesService.getSeriesByImdbId(imdbId));
     }
 
-    @PostMapping("/releases/series")
+    @GetMapping("/releases/series/{title:.+}")
     @ApiOperation(value = "Получить список релизов сериалов по части названия")
-    public ResponseEntity<List<ContentRelease>> listSeriesReleasesByTitle(@RequestBody @ApiParam(name = "series", value = "часть названия сериала", required = true) SeriesRequestDTO series) {
-        return ResponseEntity.ok().body(releasesService.getSeriesReleases(series.getTitle()));
+    public ResponseEntity<List<ContentRelease>> listSeriesReleasesByTitle(@PathVariable @ApiParam(value = "title", example = "silicon valley", required = true) String title) {
+        return ResponseEntity.ok().body(releasesService.getSeriesReleases(title));
     }
 }
