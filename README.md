@@ -6,6 +6,8 @@
 
 Разработка подобного сервиса должна упростить поиск новинок фильмов/сериалов на торрент-трекерах. 
 
+Сервис состоит изнескольких частей (**dataCollector** - наполнение БД, поиск новинок, оповещение пользователей, **movieFinder**- rest-сервис, предоставляющий функции поиска контента, релизов, подписки).
+
 Используя IMDB (https://www.imdb.com/interfaces/), сервис берёт информацию о новинках за интересующий пользователя период и ищет данные релизы на https://rutracker.org/  (доступен открытый API - http://api.rutracker.org/v1/docs/), на выходе пользователю отдавются magnet-ссылки.
 
 Сервис предоставляет следующие возможности:
@@ -25,9 +27,9 @@
 
 Backend представляет из себя REST-сервис.
 
-Frontend  реализован на React.js
+Для реализации поиска релизов и оповещения (Spring Mail) используются отдельные сервисы, взаимодействующие между собой с помощью сообщений (Spring Integration).
 
-Для реализации поиска релизов и оповещения используются отдельные сервисы, взаимодействующие между собой с помощью сообщений (Spring Integration).
+Для осуществления мониторинга используется Spring Actuator.
 
 Для упрощения сборки и деплоя используется Docker.
 
@@ -39,6 +41,7 @@ Frontend  реализован на React.js
 - primaryTitle
 - originalTitle
 - isAdult
+- startYear
 - genres
 
 **series** (информация о сериалах):
@@ -47,6 +50,7 @@ Frontend  реализован на React.js
 - primaryTitle
 - originalTitle
 - isAdult
+- startYear
 - genres
 
 **content_releases** (информация о релизах контента):
@@ -70,12 +74,12 @@ Frontend  реализован на React.js
 
 REST контроллеры:
 
-- POST:  /releases/movies - поиск релизов фильмов по названию
-- POST:  /releases/series - поиск релизов сериалов по названию
-- POST:  /movies - поиск фильмов по названию
-- POST:  /series - поиск сериалов по названию
-- GET:  /movies/{imdb_id} - поиск фильмов по imdb_id
-- GET:  /series/{imdb_id} - поиск сериалов по imdb_id
+- GET:  /releases/movies/{title} - поиск релизов фильмов по названию
+- GET:  /releases/series/{title} - поиск релизов сериалов по названию
+- GET:  /movies/title/{title} - поиск фильмов по названию
+- GET:  /series/title/{title} - поиск сериалов по названию
+- GET:  /movies/id/{imdb_id} - поиск фильмов по imdb_id
+- GET:  /series/id/{imdb_id} - поиск сериалов по imdb_id
 - POST:  /subscriptions/movies - подписатся на фильм
 - POST:  /subscriptions/series - подписатся на сериал
 - GET:  /subscriptions/{userEmail} - поиск подписок определенного пользователя
@@ -97,7 +101,7 @@ REST контроллеры:
 
 информация о подписках на оповещение:
 
-- subscribeOnMovie("imdb_id", "user_email")
-- subscribeOnSeries("imdb_id", "user_email")
+- subscribeOnMovie("imdb_id", "title", "user_email")
+- subscribeOnSeries("imdb_id", "title", "user_email")
 - getUserSubscriptions("user_email")
 - unsubscribe("imdb_id", "user_email")
