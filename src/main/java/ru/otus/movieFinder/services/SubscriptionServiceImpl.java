@@ -1,6 +1,7 @@
 package ru.otus.movieFinder.services;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import ru.otus.movieFinder.model.domain.Subscription;
 import ru.otus.movieFinder.repositories.SubscriptionRepository;
@@ -17,14 +18,22 @@ public class SubscriptionServiceImpl implements SubscriptionService {
 
     @Override
     public boolean subscribeOnMovie(String imdbId, String title, String userEmail) {
-        subscriptionRepository.save(new Subscription(imdbId, MOVIE_CONTENT_TYPE, title, userEmail, LocalDateTime.now()));
-        return true;
+        try {
+            subscriptionRepository.save(new Subscription(imdbId, MOVIE_CONTENT_TYPE, title, userEmail, LocalDateTime.now()));
+            return true;
+        } catch (DuplicateKeyException e) {
+            return true;
+        }
     }
 
     @Override
     public boolean subscribeOnSeries(String imdbId, String title, String userEmail) {
-        subscriptionRepository.save(new Subscription(imdbId, SERIES_CONTENT_TYPE, title, userEmail, LocalDateTime.now()));
-        return true;
+        try {
+            subscriptionRepository.save(new Subscription(imdbId, SERIES_CONTENT_TYPE, title, userEmail, LocalDateTime.now()));
+            return true;
+        } catch (DuplicateKeyException e) {
+            return true;
+        }
     }
 
     @Override

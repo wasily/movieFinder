@@ -7,7 +7,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import ru.otus.movieFinder.model.domain.Subscription;
 import ru.otus.movieFinder.model.dto.SubscriptionCancelDTO;
-import ru.otus.movieFinder.model.dto.SubscriptionRequestDTO;
+import ru.otus.movieFinder.model.dto.SubscriptionMovieDTO;
+import ru.otus.movieFinder.model.dto.SubscriptionSeriesDTO;
 import ru.otus.movieFinder.services.SubscriptionService;
 
 import java.util.List;
@@ -19,13 +20,13 @@ public class SubscriptionController {
 
     @PostMapping("/subscriptions/movies")
     @ApiOperation(value = "Подписаться на фильм")
-    public ResponseEntity subscribeOnMovie(@RequestBody @ApiParam(name = "sub", value = "запрос на создание подписки на фильм", required = true) SubscriptionRequestDTO sub) {
+    public ResponseEntity subscribeOnMovie(@RequestBody @ApiParam(name = "sub", value = "запрос на создание подписки на фильм", required = true) SubscriptionMovieDTO sub) {
         return subscriptionService.subscribeOnMovie(sub.getImdbId(), sub.getTitle(), sub.getUserEmail()) ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
     }
 
     @PostMapping("/subscriptions/series")
     @ApiOperation(value = "Подписаться на сериал")
-    public ResponseEntity subscribeOnSeries(@RequestBody @ApiParam(name = "sub", value = "запрос на создание подписки на сериал", required = true) SubscriptionRequestDTO sub) {
+    public ResponseEntity subscribeOnSeries(@RequestBody @ApiParam(name = "sub", value = "запрос на создание подписки на сериал", required = true) SubscriptionSeriesDTO sub) {
         return subscriptionService.subscribeOnSeries(sub.getImdbId(), sub.getTitle(), sub.getUserEmail()) ? ResponseEntity.ok().build() : ResponseEntity.notFound().build();
     }
 
