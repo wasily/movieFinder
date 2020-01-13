@@ -11,8 +11,8 @@ public class SubscriptionRepositoryCustomImpl implements SubscriptionRepositoryC
     private final MongoTemplate mongoTemplate;
 
     @Override
-    public boolean deleteSubscriptionByImdbIdAndUser(String imdbId, String user) {
-        mongoTemplate.remove(Query.query(Criteria.where("imdbId").is(imdbId).and("user").is(user)), Subscription.class);
+    public boolean deleteSubscriptionByImdbIdAndUserEmail(String imdbId, String userEmail) {
+        mongoTemplate.remove(Query.query(Criteria.where("imdbId").is(imdbId).and("userEmail").is(userEmail)), Subscription.class);
         return true;
     }
 }

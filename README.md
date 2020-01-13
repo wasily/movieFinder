@@ -6,6 +6,8 @@
 
 Разработка подобного сервиса должна упростить поиск новинок фильмов/сериалов на торрент-трекерах. 
 
+Сервис состоит изнескольких частей (**dataCollector** - наполнение БД, поиск новинок, оповещение пользователей, **movieFinder**- rest-сервис, предоставляющий функции поиска контента, релизов, подписки).
+
 Используя IMDB (https://www.imdb.com/interfaces/), сервис берёт информацию о новинках за интересующий пользователя период и ищет данные релизы на https://rutracker.org/  (доступен открытый API - http://api.rutracker.org/v1/docs/), на выходе пользователю отдавются magnet-ссылки.
 
 Сервис предоставляет следующие возможности:
@@ -16,8 +18,8 @@
 Подписка работает следующим путем:
 
 1. При подписке ползьзователя на фильм/сериал, создается новая запись в **subscriptions**
-2. После завершения обновления информации о релизах, при результативном поиске формируется **subscribed_releases** и обновляет **subscriptions**.lastUpdateTime
-3.  Затем заускается NotifierService, которая исходя из **subscribed_releases** и **subscriptions**, осуществляет оповещение, очищает **subscribed_releases**
+2. После завершения обновления информации о релизах, при результативном поиске формируется (c использованием Spring Integration) message для поиска новинок, на которые есть подписка
+3.  При результативном поисек новинок (c использованием Spring Integration) заускается NotifierService, которая осуществляет оповещение по email
 
 ###### Стэк стехнологий.
 
@@ -25,11 +27,9 @@
 
 Backend представляет из себя REST-сервис.
 
-Для решения задач периодической актуализации данных используется Spring Batch.
+Для реализации поиска релизов и оповещения (Spring Mail) используются отдельные сервисы, взаимодействующие между собой с помощью сообщений (Spring Integration).
 
-Frontend  реализован на React.js
-
-Для реализации поиска релизов и оповещения используются отдельные сервисы, взаимодействующие между собой с помощью сообщений (Spring Integration).
+Для осуществления мониторинга используется Spring Actuator.
 
 Для упрощения сборки и деплоя используется Docker.
 
@@ -41,6 +41,7 @@ Frontend  реализован на React.js
 - primaryTitle
 - originalTitle
 - isAdult
+- startYear
 - genres
 
 **series** (информация о сериалах):
@@ -49,6 +50,7 @@ Frontend  реализован на React.js
 - primaryTitle
 - originalTitle
 - isAdult
+- startYear
 - genres
 
 **content_releases** (информация о релизах контента):
@@ -65,28 +67,22 @@ Frontend  реализован на React.js
 - imdbId 
 - contentType (movie, series)
 - contentTitle (для поиска по релизам)
-- userDTO (для оповещения)
+- userEmail
 - lastUpdateTime - время, когда подписались, а в последствии - время, когда в последний раз cделали поиск релизов
-
-**subscribed_releases** (информация о результатах поиска релизов по подпискам):
-
-- imdbId
-- contentType
-- [] content_releases
 
 ###### API.
 
 REST контроллеры:
 
-- GET:  /releases/movies - поиск релизов фильмов по названию
-- GET:  /releases/series - поиск релизов сериалов по названию
-- GET:  /movies - поиск фильмов по названию
-- GET:  /series - поиск сериалов по названию
-- GET:  /movies/{imdb_id} - поиск фильмов по imdb_id
-- GET:  /series/{imdb_id} - поиск сериалов по imdb_id
+- GET:  /releases/movies/{title} - поиск релизов фильмов по названию
+- GET:  /releases/series/{title} - поиск релизов сериалов по названию
+- GET:  /movies/title/{title} - поиск фильмов по названию
+- GET:  /series/title/{title} - поиск сериалов по названию
+- GET:  /movies/id/{imdb_id} - поиск фильмов по imdb_id
+- GET:  /series/id/{imdb_id} - поиск сериалов по imdb_id
 - POST:  /subscriptions/movies - подписатся на фильм
 - POST:  /subscriptions/series - подписатся на сериал
-- GET:  /subscriptions/{user} - поиск подписок определенного пользователя
+- GET:  /subscriptions/{userEmail} - поиск подписок определенного пользователя
 - DEL:  /subscriptions - отмена подписки пользователя на опреленный фильм/сериал
 
 Сервисы:
@@ -105,7 +101,7 @@ REST контроллеры:
 
 информация о подписках на оповещение:
 
-- subscribeOnMovie("imdb_id", "user_email")
-- subscribeOnSeries("imdb_id", "user_email")
+- subscribeOnMovie("imdb_id", "title", "user_email")
+- subscribeOnSeries("imdb_id", "title", "user_email")
 - getUserSubscriptions("user_email")
 - unsubscribe("imdb_id", "user_email")

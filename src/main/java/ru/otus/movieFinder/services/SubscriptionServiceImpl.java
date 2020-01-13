@@ -1,6 +1,7 @@
 package ru.otus.movieFinder.services;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 import ru.otus.movieFinder.model.domain.Subscription;
 import ru.otus.movieFinder.repositories.SubscriptionRepository;
@@ -16,24 +17,32 @@ public class SubscriptionServiceImpl implements SubscriptionService {
     private static final String SERIES_CONTENT_TYPE = "series";
 
     @Override
-    public boolean subscribeOnMovie(String imdbId, String title, String user) {
-        subscriptionRepository.save(new Subscription(imdbId, MOVIE_CONTENT_TYPE, title, user, LocalDateTime.now()));
-        return true;
+    public boolean subscribeOnMovie(String imdbId, String title, String userEmail) {
+        try {
+            subscriptionRepository.save(new Subscription(imdbId, MOVIE_CONTENT_TYPE, title, userEmail, LocalDateTime.now()));
+            return true;
+        } catch (DuplicateKeyException e) {
+            return true;
+        }
     }
 
     @Override
-    public boolean subscribeOnSeries(String imdbId, String title, String user) {
-        subscriptionRepository.save(new Subscription(imdbId, SERIES_CONTENT_TYPE, title, user, LocalDateTime.now()));
-        return true;
+    public boolean subscribeOnSeries(String imdbId, String title, String userEmail) {
+        try {
+            subscriptionRepository.save(new Subscription(imdbId, SERIES_CONTENT_TYPE, title, userEmail, LocalDateTime.now()));
+            return true;
+        } catch (DuplicateKeyException e) {
+            return true;
+        }
     }
 
     @Override
-    public List<Subscription> getUserSubscriptions(String user) {
-        return subscriptionRepository.findByUser(user);
+    public List<Subscription> getUserSubscriptions(String userEmail) {
+        return subscriptionRepository.findByUserEmail(userEmail);
     }
 
     @Override
-    public boolean unsubscribe(String imdbId, String user) {
-        return subscriptionRepository.deleteSubscriptionByImdbIdAndUser(imdbId, user);
+    public boolean unsubscribe(String imdbId, String userEmail) {
+        return subscriptionRepository.deleteSubscriptionByImdbIdAndUserEmail(imdbId, userEmail);
     }
 }
