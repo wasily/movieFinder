@@ -1,0 +1,8 @@
+logging:
+  level:
+    root: WARN
+spring:
+  data:
+    mongodb:
+      port: 0
+      database: test
