@@ -1,0 +1,8 @@
+spring:
+  application:
+    name: movie_finder
+  cloud:
+    config:
+      uri: http://localhost:5000
+  profiles:
+    active: local
